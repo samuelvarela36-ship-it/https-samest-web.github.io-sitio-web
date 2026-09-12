@@ -1,16 +1,680 @@
-edee7-d0464
-be940-34687
-12bdc-c7170
-320fe-be7ef
-68ee2-e74ed
-98377-91e44
-fb5f8-360e2
-a84ad-04c73
-51e4a-e729e
-e6992-2c0ca
-7dccc-9a668
-36c16-112bd
-72a52-1e2fa
-05cef-7bb32
-12ceb-0b895
-4cc00-48284
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizador SAMEST Estructuras</title>
+  <style>
+    :root {
+      --primary: #0D3A68;
+      --primary-dark: #082544;
+      --accent-green: #25D366;
+      --accent-blue: #1D70B8;
+      --bg-light: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #CBD5E1;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      padding-bottom: 50px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      padding: 20px 16px;
+      text-align: center;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 0 4px 12px rgba(13, 58, 104, 0.2);
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    header p {
+      font-size: 0.85rem;
+      color: #E2E8F0;
+      opacity: 0.9;
+    }
+
+    .badge-contact {
+      display: inline-block;
+      margin-top: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #FFFFFF;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .row-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: filter 0.2s, transform 0.1s;
+      gap: 8px;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-green {
+      background: var(--accent-green);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .badge-calc {
+      background: #EFF6FF;
+      color: var(--primary);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 8px;
+      border: 1px dashed var(--accent-blue);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Tabla de Conceptos */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: #F1F5F9;
+      color: var(--text-main);
+      padding: 8px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #E2E8F0;
+      vertical-align: middle;
+    }
+
+    .btn-del {
+      background: #FEE2E2;
+      color: #DC2626;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    /* Resumen Financiero y Pagos */
+    .summary-box {
+      background: #F8FAFC;
+      border: 1.5px solid var(--primary);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 14px;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .summary-total {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      border-top: 1.5px dashed var(--border-color);
+      padding-top: 8px;
+      margin-top: 8px;
+    }
+
+    .payments-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .payment-pill {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .payment-pill span {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .payment-pill strong {
+      font-size: 0.95rem;
+      color: var(--primary);
+    }
+
+    /* Print styling */
+    @media print {
+      body {
+        background: white;
+        color: black;
+        padding: 0;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .card {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        margin-bottom: 12px;
+      }
+      header {
+        background: white;
+        color: black;
+        border-bottom: 2px solid #0D3A68;
+        padding: 10px 0;
+      }
+      header h1 {
+        color: #0D3A68;
+      }
+      header p {
+        color: #333;
+      }
+      .badge-contact {
+        background: #F0F0F0;
+        color: #333;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>SAMEST ESTRUCTURAS</h1>
+  <p>Herrería Estructural para Negocios • Calidad, Precisión y Compromiso</p>
+  <div class="badge-contact">
+    📍 Ixtapaluca, Edo. Méx. • 📞 56 4585 5721 • Samuel A. Mendoza Varela
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- DATOS DEL CLIENTE Y OBRA -->
+  <div class="card">
+    <h2>📋 Datos del Proyecto</h2>
+    <div class="row-2">
+      <div class="form-group">
+        <label>Nombre del Cliente</label>
+        <input type="text" id="clienteNombre" placeholder="Ej. Arquitecto / Particular">
+      </div>
+      <div class="form-group">
+        <label>Ubicación / Obra</label>
+        <input type="text" id="clienteObra" placeholder="Ej. Valle de Chalco / Ixtapaluca">
+      </div>
+    </div>
+    <div class="row-2">
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="date" id="cotizacionFecha">
+      </div>
+      <div class="form-group">
+        <label>Tiempo de Ejecución</label>
+        <input type="text" id="tiempoEntrega" value="5 a 7 días hábiles">
+      </div>
+    </div>
+  </div>
+
+  <!-- CALCULADORA RÁPIDA DE CONCEPTOS -->
+  <div class="card no-print">
+    <h2>⚙️ Calculadora Paramétrica</h2>
+    <div class="form-group">
+      <label>Tipo de Trabajo</label>
+      <select id="tipoTrabajo" onchange="actualizarModoCalculo()">
+        <option value="EST-01" data-precio="55" data-unidad="Kg" data-nombre="Estructura pesada (Vigas IPR)">Estructura pesada / Vigas IPR ($55 / Kg)</option>
+        <option value="EST-02" data-precio="48" data-unidad="Kg" data-nombre="Estructura ligera (Tubular y monten)">Estructura ligera / Tubular y monten ($48 / Kg)</option>
+        <option value="TECH-01" data-precio="850" data-unidad="m²" data-nombre="Techado estructural (Lámina pintro)" selected>Techado con lámina pintro ($850 / m²)</option>
+        <option value="TECH-02" data-precio="950" data-unidad="m²" data-nombre="Pérgola / Lámina traslúcida">Pérgola / Lámina traslúcida ($950 / m²)</option>
+        <option value="PUE-01" data-precio="2200" data-unidad="m²" data-nombre="Puerta residencial / comercial">Puerta de herrería a medida ($2,200 / m²)</option>
+        <option value="ZAG-01" data-precio="2400" data-unidad="m²" data-nombre="Portón / Zaguán en lámina y tubular">Portón / Zaguán corredizo/abatible ($2,400 / m²)</option>
+        <option value="PROT-01" data-precio="1400" data-unidad="m²" data-nombre="Protección de ventana cal. 18">Protección de ventana cal. 18 + metal desplegado ($1,400 / m²)</option>
+        <option value="BAR-01" data-precio="1100" data-unidad="ml" data-nombre="Barandal / Pasamanos">Barandal / Pasamanos tubular ($1,100 / metro lineal)</option>
+        <option value="REF-01" data-precio="13500" data-unidad="Servicio" data-nombre="Reforzamiento de losa en IPR">Reforzamiento de losa / trabe ($13,500 / servicio)</option>
+        <option value="CUSTOM" data-precio="0" data-unidad="pza" data-nombre="Concepto personalizado">Personalizado / Manual</option>
+      </select>
+    </div>
+
+    <!-- Campos Dinámicos para M2 -->
+    <div id="boxMedidas" class="row-2">
+      <div class="form-group">
+        <label>Ancho (m)</label>
+        <input type="number" step="0.01" id="medidaAncho" placeholder="Ej. 1.20" oninput="calcularConcepto()">
+      </div>
+      <div class="form-group">
+        <label>Alto (m)</label>
+        <input type="number" step="0.01" id="medidaAlto" placeholder="Ej. 2.10" oninput="calcularConcepto()">
+      </div>
+    </div>
+
+    <!-- Campos Dinámicos para Kilos o Metros lineales -->
+    <div id="boxCantidadDirecta" class="row-2" style="display: none;">
+      <div class="form-group">
+        <label id="labelCantidad">Cantidad / Kilos</label>
+        <input type="number" step="0.1" id="cantidadDirecta" placeholder="Ej. 500" oninput="calcularConcepto()">
+      </div>
+      <div class="form-group">
+        <label>Precio Unitario ($ MXN)</label>
+        <input type="number" step="1" id="precioUnitario" oninput="calcularConcepto()">
+      </div>
+    </div>
+
+    <!-- Detalle / Especificación extra -->
+    <div class="form-group">
+      <label>Detalles técnicos adicionales (opcional)</label>
+      <input type="text" id="detalleExtra" placeholder="Ej. En cajón con solera 2x1/4, color negro mate">
+    </div>
+
+    <!-- Resultado Previo -->
+    <div class="badge-calc">
+      <span id="txtCantidadCalculada">Calculado: 0.00 m²</span>
+      <span id="txtSubtotalCalculado">Total: $0.00 MXN</span>
+    </div>
+
+    <button type="button" class="btn btn-primary" style="margin-top: 12px;" onclick="agregarConcepto()">
+      ➕ Agregar Concepto a la Cotización
+    </button>
+  </div>
+
+  <!-- LISTA DE CONCEPTOS DE LA COTIZACIÓN -->
+  <div class="card">
+    <h2>🔨 Conceptos Cotizados</h2>
+    <div class="table-container">
+      <table id="tablaConceptos">
+        <thead>
+          <tr>
+            <th>Concepto</th>
+            <th>Cant.</th>
+            <th>P. Unit</th>
+            <th>Total</th>
+            <th class="no-print"></th>
+          </tr>
+        </thead>
+        <tbody id="listaConceptosBody">
+          <!-- Se llena dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Resumen y Esquema de Pagos -->
+    <div class="summary-box">
+      <div class="summary-line">
+        <span>Subtotal</span>
+        <strong id="valSubtotal">$0.00 MXN</strong>
+      </div>
+      <div class="summary-line summary-total">
+        <span>TOTAL INVERSIÓN</span>
+        <span id="valTotal">$0.00 MXN</span>
+      </div>
+
+      <div style="margin-top: 10px; font-size: 0.8rem; font-weight: bold; color: var(--primary);">
+        Esquema de Pagos SAMEST:
+      </div>
+      <div class="payments-grid">
+        <div class="payment-pill">
+          <span>Anticipo (50%)</span>
+          <strong id="valAnticipo">$0.00</strong>
+        </div>
+        <div class="payment-pill">
+          <span>Avance 70% (25%)</span>
+          <strong id="valAvance">$0.00</strong>
+        </div>
+        <div class="payment-pill">
+          <span>Entrega (25%)</span>
+          <strong id="valLiquidacion">$0.00</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTAS Y ALCANCES -->
+  <div class="card" style="font-size: 0.82rem; color: var(--text-muted);">
+    <strong style="color: var(--primary); display: block; margin-bottom: 6px;">Condiciones del Servicio:</strong>
+    <ul style="padding-left: 18px; line-height: 1.5;">
+      <li>Incluye: Material, habilitado, mano de obra, herramienta, primario anticorrosivo e instalación.</li>
+      <li>Garantía: Por defecto de fabricación y soldadura estructural.</li>
+      <li>No incluye suministro ni consumo de luz eléctrica en obra.</li>
+      <li>Precios sujetos a cambio por modificaciones en medidas o especificaciones.</li>
+    </ul>
+  </div>
+
+  <!-- ACCIONES RÁPIDAS -->
+  <div class="no-print" style="display: flex; flex-direction: column; gap: 10px;">
+    <button type="button" class="btn btn-green" onclick="copiarWhatsApp()">
+      💬 Copiar Mensaje para WhatsApp
+    </button>
+    <div class="row-2">
+      <button type="button" class="btn btn-outline" onclick="window.print()">
+        🖨️ Imprimir / Guardar PDF
+      </button>
+      <button type="button" class="btn btn-outline" style="border-color: #EF4444; color: #EF4444;" onclick="limpiarCotizacion()">
+        🗑️ Limpiar Todo
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Inicializar fecha de hoy
+  document.getElementById('cotizacionFecha').value = new Date().toISOString().split('T')[0];
+
+  let conceptos = [
+    {
+      nombre: "Reforzamiento de Losa",
+      descripcion: "Suministro, habilitado y montaje de estructura con IPR de 4\" en cajón, placas 20x20x3/8\", taquetes expansivos y primario anticorrosivo",
+      cantidad: 1,
+      unidad: "Servicio",
+      precioUnitario: 13500,
+      total: 13500
+    }
+  ];
+
+  function renderizarTabla() {
+    const tbody = document.getElementById('listaConceptosBody');
+    tbody.innerHTML = '';
+    let totalGeneral = 0;
+
+    conceptos.forEach((c, idx) => {
+      totalGeneral += c.total;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>
+          <strong>${c.nombre}</strong><br>
+          <small style="color: var(--text-muted); font-size: 0.75rem;">${c.descripcion}</small>
+        </td>
+        <td>${c.cantidad} ${c.unidad}</td>
+        <td>$${c.precioUnitario.toLocaleString('es-MX', {minimumFractionDigits: 2})}</td>
+        <td><strong>$${c.total.toLocaleString('es-MX', {minimumFractionDigits: 2})}</strong></td>
+        <td class="no-print">
+          <button class="btn-del" onclick="eliminarConcepto(${idx})">✕</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Actualizar Totales
+    document.getElementById('valSubtotal').innerText = `$${totalGeneral.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN`;
+    document.getElementById('valTotal').innerText = `$${totalGeneral.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN`;
+
+    // Actualizar Pagos (50 / 25 / 25)
+    document.getElementById('valAnticipo').innerText = `$${(totalGeneral * 0.50).toLocaleString('es-MX', {minimumFractionDigits: 2})}`;
+    document.getElementById('valAvance').innerText = `$${(totalGeneral * 0.25).toLocaleString('es-MX', {minimumFractionDigits: 2})}`;
+    document.getElementById('valLiquidacion').innerText = `$${(totalGeneral * 0.25).toLocaleString('es-MX', {minimumFractionDigits: 2})}`;
+  }
+
+  function actualizarModoCalculo() {
+    const select = document.getElementById('tipoTrabajo');
+    const opt = select.options[select.selectedIndex];
+    const unidad = opt.getAttribute('data-unidad');
+    const precio = parseFloat(opt.getAttribute('data-precio')) || 0;
+
+    document.getElementById('precioUnitario').value = precio;
+
+    if (unidad === 'm²') {
+      document.getElementById('boxMedidas').style.display = 'grid';
+      document.getElementById('boxCantidadDirecta').style.display = 'none';
+    } else {
+      document.getElementById('boxMedidas').style.display = 'none';
+      document.getElementById('boxCantidadDirecta').style.display = 'grid';
+      document.getElementById('labelCantidad').innerText = `Cantidad en ${unidad}`;
+    }
+    calcularConcepto();
+  }
+
+  function calcularConcepto() {
+    const select = document.getElementById('tipoTrabajo');
+    const opt = select.options[select.selectedIndex];
+    const unidad = opt.getAttribute('data-unidad');
+    let precio = parseFloat(document.getElementById('precioUnitario').value) || parseFloat(opt.getAttribute('data-precio')) || 0;
+
+    let cantidadFinal = 0;
+    if (unidad === 'm²') {
+      const ancho = parseFloat(document.getElementById('medidaAncho').value) || 0;
+      const alto = parseFloat(document.getElementById('medidaAlto').value) || 0;
+      cantidadFinal = ancho * alto;
+      document.getElementById('txtCantidadCalculada').innerText = `Área: ${cantidadFinal.toFixed(2)} m² (${ancho}m x ${alto}m)`;
+    } else {
+      cantidadFinal = parseFloat(document.getElementById('cantidadDirecta').value) || 0;
+      document.getElementById('txtCantidadCalculada').innerText = `Cantidad: ${cantidadFinal} ${unidad}`;
+    }
+
+    const subtotal = cantidadFinal * precio;
+    document.getElementById('txtSubtotalCalculado').innerText = `Total: $${subtotal.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN`;
+  }
+
+  function agregarConcepto() {
+    const select = document.getElementById('tipoTrabajo');
+    const opt = select.options[select.selectedIndex];
+    const unidad = opt.getAttribute('data-unidad');
+    let nombre = opt.getAttribute('data-nombre');
+    let precio = parseFloat(document.getElementById('precioUnitario').value) || parseFloat(opt.getAttribute('data-precio')) || 0;
+    const extra = document.getElementById('detalleExtra').value.trim();
+
+    let cantidadFinal = 0;
+    let descripcion = "";
+
+    if (unidad === 'm²') {
+      const ancho = parseFloat(document.getElementById('medidaAncho').value) || 0;
+      const alto = parseFloat(document.getElementById('medidaAlto').value) || 0;
+      if (ancho <= 0 || alto <= 0) {
+        alert("Por favor ingresa ancho y alto válidos.");
+        return;
+      }
+      cantidadFinal = parseFloat((ancho * alto).toFixed(2));
+      descripcion = `Medidas: ${ancho.toFixed(2)}m ancho x ${alto.toFixed(2)}m alto (${cantidadFinal} m²). ${extra}`;
+    } else {
+      cantidadFinal = parseFloat(document.getElementById('cantidadDirecta').value) || 0;
+      if (cantidadFinal <= 0) {
+        alert("Por favor ingresa una cantidad válida.");
+        return;
+      }
+      descripcion = `${cantidadFinal} ${unidad}. ${extra}`;
+    }
+
+    const total = cantidadFinal * precio;
+    conceptos.push({
+      nombre: nombre,
+      descripcion: descripcion,
+      cantidad: cantidadFinal,
+      unidad: unidad,
+      precioUnitario: precio,
+      total: total
+    });
+
+    // Reset campos
+    document.getElementById('medidaAncho').value = '';
+    document.getElementById('medidaAlto').value = '';
+    document.getElementById('cantidadDirecta').value = '';
+    document.getElementById('detalleExtra').value = '';
+    calcularConcepto();
+    renderizarTabla();
+  }
+
+  function eliminarConcepto(idx) {
+    conceptos.splice(idx, 1);
+    renderizarTabla();
+  }
+
+  function limpiarCotizacion() {
+    if (confirm("¿Deseas vaciar la cotización actual?")) {
+      conceptos = [];
+      renderizarTabla();
+    }
+  }
+
+  function copiarWhatsApp() {
+    const cliente = document.getElementById('clienteNombre').value.trim() || "Cliente";
+    const obra = document.getElementById('clienteObra').value.trim() || "Ubicación acordada";
+    const tiempo = document.getElementById('tiempoEntrega').value.trim() || "5 a 7 días hábiles";
+
+    if (conceptos.length === 0) {
+      alert("Agrega al menos un concepto a la cotización.");
+      return;
+    }
+
+    let totalGeneral = 0;
+    let itemsTexto = "";
+    conceptos.forEach((c, idx) => {
+      totalGeneral += c.total;
+      itemsTexto += `\n🔩 *${c.nombre}* (${c.cantidad} ${c.unidad}): $${c.total.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN\n   _${c.descripcion}_`;
+    });
+
+    const anticipo = (totalGeneral * 0.50).toLocaleString('es-MX', {minimumFractionDigits: 2});
+    const avance = (totalGeneral * 0.25).toLocaleString('es-MX', {minimumFractionDigits: 2});
+    const finiquito = (totalGeneral * 0.25).toLocaleString('es-MX', {minimumFractionDigits: 2});
+
+    const msg = `¡Hola, ${cliente}! Un gusto saludarte de parte de *SAMEST ESTRUCTURAS*.
+
+📍 *Obra:* ${obra}
+${itemsTexto}
+
+💰 *TOTAL INVERSIÓN:* $${totalGeneral.toLocaleString('es-MX', {minimumFractionDigits: 2})} MXN
+✔️ *Incluye:* Materiales de primera calidad, mano de obra, habilitado, primario anticorrosivo e instalación en sitio.
+✔️ *Garantía:* Defectos de fabricación y soldadura estructural.
+
+📋 *Esquema de Pago:*
+• Anticipo (50% para iniciar fabricación): $${anticipo}
+• Avance 70% (25% durante el proyecto): $${avance}
+• Liquidación (25% contra entrega terminada): $${finiquito}
+
+⏱️ *Tiempo de ejecución:* ${tiempo} tras anticipo confirmado (no incluye luz eléctrica en obra).
+
+¿Te gustaría que agendemos visita para verificar medidas o tienes alguna duda sobre el presupuesto?`;
+
+    navigator.clipboard.writeText(msg).then(() => {
+      alert("¡Texto copiado con éxito! Ya puedes pegarlo directamente en WhatsApp.");
+    }).catch(err => {
+      prompt("Copia el texto manualmente:", msg);
+    });
+  }
+
+  // Carga inicial
+  actualizarModoCalculo();
+  renderizarTabla();
+</script>
+
+</body>
+</html>
